@@ -1,6 +1,6 @@
-Java Build and packaging:
+# Java Build and packaging:
 
-Summary:
+# Summary:
 
 - Java
 
@@ -86,7 +86,9 @@ wget https://github.com/contentful/the-example-app.nodejs/archive/refs/heads/mas
 
   yum install python 
   sudo apt update && sudo apt install -y python3
+
   # PIP Python Package Manager 
+
   pip -v
   pip install flask
   pip show
@@ -152,5 +154,44 @@ sudo /opt/apache-tomcat-11/bin/startup.sh
 # Then run the curl command to see the tomcat page content and process.
 curl localhost:9090; ps -ef | grep tomcat
 
+# Where should you place your application that you want apache tomcat to serve?
+/opt/apache-tomcat-<Version_number>/webapps
 
+# Logs will be under extracted tomcat package logs directory. You can check content of each log or run grep command as
 
+sudo sh -c 'grep sample.war /opt/apache-tomcat-11/logs/*'
+
+# Python
+
+# Navigate to the following directory:
+
+cd /opt/simple-webapp-flask
+
+# Next, use the pip command to install the required packages:
+sudo pip install -r requirements.txt
+
+# Finally, verify the installed packages by executing:
+sudo pip list
+
+# Execute the following command to modify the port number in your application:
+sudo sed -i 's/8080/5000/g' app.py
+
+# After making the changes, start the application by running:
+python3 app.py
+
+# If gunicorn is not installed, execute the following command to install it:
+sudo pip install gunicorn --upgrade
+
+# After installation, you can run the application using the command:
+gunicorn app:app
+
+# Important Note: The default location for the gunicorn binary is /usr/bin/gunicorn. If gunicorn is installed in a different location, such as /usr/lib/python3.9/site-packages/bin/gunicorn, please export this path to the $PATH environment variable for the user thor. This will allow you to use the gunicorn command without needing to specify the absolute path.
+
+nohup gunicorn app:app -w 3 &
+curl localhost:8000
+
+# Node Js app deployment basics:
+npm install -> to install the dependency under package.json
+node app.js -> to run the app
+npm run start -> run the app in the production mode
+npm run start:dev -> run the app in the develpment mode

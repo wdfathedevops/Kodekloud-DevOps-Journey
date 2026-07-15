@@ -191,7 +191,40 @@ nohup gunicorn app:app -w 3 &
 curl localhost:8000
 
 # Node Js app deployment basics:
+
 npm install -> to install the dependency under package.json
 node app.js -> to run the app
 npm run start -> run the app in the production mode
 npm run start:dev -> run the app in the develpment mode
+jq . /opt/the-example-app.nodejs/package.json -> verify the content of Json file
+jq .scripts /opt/the-example-app.nodejs/package.json -> To directly retrieve the scripts section
+
+cd /opt/the-example-app.nodejs/
+sudo npm install
+node app.js
+
+# Execute the following command to install the latest version of PM2 globally:
+sudo npm install pm2@latest -g
+
+# To find the latest version available, run the command below:
+
+sudo npm dist-tag pm2
+
+
+# PM2 process manager: is a production grade process manager for node.js applications with build-in load balancer.
+
+pm2 statrt app.js
+pm2 start app.js -i 4 => Run the app with 4 instanse
+
+- Execute the command below to delete the pm2 fork:
+ pm2 delete app.js
+- Afterward, run the following command to start the application with 4 forks:
+ pm2 start app.js -i 4
+
+# IPS and Ports:
+
+- What IP address and port should I use?
+
+- Localhost vs 127.0.0.1 vs IP Address?
+
+- Why can't I connect to my server?

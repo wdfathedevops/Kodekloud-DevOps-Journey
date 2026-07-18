@@ -96,6 +96,7 @@ wget https://github.com/contentful/the-example-app.nodejs/archive/refs/heads/mas
   pip install -r requirements.txt
   pip install gunicorn --upgrade
   pip uninstall gunicorn
+  nohup python3 app.py & => Restart python app in the background
 
   # Other Package Managers:
    easy_install
@@ -228,3 +229,14 @@ pm2 start app.js -i 4 => Run the app with 4 instanse
 - Localhost vs 127.0.0.1 vs IP Address?
 
 - Why can't I connect to my server?
+
+# Configure Apache Tomcat to run on all IP interfaces using port 9090 on the host01 server. We have successfully downloaded Apache Tomcat in the /opt/apache-tomcat-8.5.53 directory. Proceed by modifying the necessary configuration files and then starting the Tomcat server.
+
+To proceed, navigate to the /opt/ directory using the cd command as shown below:
+ cd /opt/
+
+Next, prepend the following command with sudo, as root permissions are required for execution:
+ sudo sed -i 's/8080/9090/g' apache-tomcat-8.5.53/conf/server.xml
+
+Finally, execute the startup.sh script with the following command:
+ sudo ./apache-tomcat-8.5.53/bin/startup.sh

@@ -239,4 +239,57 @@ Next, prepend the following command with sudo, as root permissions are required 
  sudo sed -i 's/8080/9090/g' apache-tomcat-8.5.53/conf/server.xml
 
 Finally, execute the startup.sh script with the following command:
- sudo ./apache-tomcat-8.5.53/bin/startup.sh
+sudo ./apache-tomcat-8.5.53/bin/startup.sh
+
+
+# MYSQL database:
+
+MySQL is a relational database. It organizes data into tables with rows and columns, and uses SQL (Structured Query Language) to manage and query the data. Think of it as a well-structured spreadsheet with relationships between tables!
+
+# Install MySQL server package:
+
+# To install the MariaDB Server, run the command below:
+sudo yum install mariadb-server -y
+
+# For installing MySQL Server, please follow these steps:
+sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
+
+For installing MySQL Server, please follow these steps:
+
+1- Import the MySQL GPG key:
+sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
+
+2- Install the MySQL community release package:
+sudo yum install https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+
+# Finally, install the MySQL community server:
+sudo yum install mysql-community-server -y
+
+# find the MySQL root user password using the command:
+sudo grep 'temporary password' /var/log/mysqld.log
+
+In case of MySQL, use below mentioned queries:
+
+i. Login to MySQL database server: -
+
+mysql -u root -p
+(enter password what you got from `sudo grep 'temporary password' command earlier)
+
+and then run the following queries in it.
+
+ii. SET PASSWORD = 'P@ssw0rd123';
+
+iii. FLUSH PRIVILEGES;
+
+# Create a MySQL user named kk_user and assign the password S3cure#3214 to this user.
+
+Login to MySQL:
+mysql -u root -p
+CREATE USER 'kk_user'@'localhost' IDENTIFIED BY 'S3cure#3214';
+
+# Now, we already have a database named kk_db and a user named kk_user. Grant full access on the kk_db database to the kk_user user.
+
+Login to MySQL:
+mysql -u root -p
+
+GRANT ALL PRIVILEGES ON kk_db.* TO 'kk_user'@'localhost';
